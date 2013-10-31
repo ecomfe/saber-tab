@@ -2,7 +2,7 @@
  * Saber UI
  * Copyright 2013 Baidu Inc. All rights reserved.
  * 
- * @file 按钮控件
+ * @file 选项卡控件
  * @author zfkun(zfkun@msn.com)
  */
 
@@ -16,7 +16,7 @@ define(function ( require ) {
     var Control = require( 'saber-control' );
 
     /**
-     * 导航标签控件
+     * 选项卡控件
      * 
      * @exports Tab
      * @extends module:Control
