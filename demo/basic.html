@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Tab - Saber UI Demo</title>
+    <link rel="stylesheet" href="demo.css">
+    <script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/1-6-6/esl.js"></script>
+    <script>
+    require.config({
+        paths: {
+            css: 'css'
+        },
+        packages: [
+            {
+                name: 'saber-ui',
+                location: '../dep/saber-ui/src',
+                main: 'ui'
+            },
+
+            {
+                name: 'saber-lang',
+                location: '../dep/saber-lang/src',
+                main: 'main'
+            },
+
+            {
+                name: 'saber-string',
+                location: '../dep/saber-string/src',
+                main: 'string'
+            },
+
+            {
+                name: 'saber-dom',
+                location: '../dep/saber-dom/src',
+                main: 'main'
+            },
+
+            {
+                name: 'saber-emitter',
+                location: '../dep/saber-emitter/src',
+                main: 'emitter'
+            },
+
+            {
+                name: 'saber-tap',
+                location: '../dep/saber-tap/src',
+                main: 'tap'
+            },
+        
+            {
+                name: 'saber-control',
+                location: '../dep/saber-control/src',
+                main: 'main'
+            },
+
+            {
+                name: 'saber-tab',
+                location: '../src',
+                main: 'tab'
+            }
+        ]
+    });
+    </script>
+
+</head>
+
+<body>
+    <header>Tab</header>
+
+    <div class="container">
+        <h2>静态化构建</h2>
+        <div id="wrapper1" class="wrapper">
+            <div class="loading">初始化中...</div>
+            <div data-ui="type:Tab;activeIndex:1;">
+                <ul data-role="navigator">
+                    <li data-for="a">Tab1</li>
+                    <li data-for="b">actived</li>
+                    <li data-for="c">Tab3</li>
+                    <li>disabled</li>
+                </ul>
+                <div id="a" class="ui-tab-panel">我是Tab1</div>
+                <div id="b" class="ui-tab-panel">我是actived</div>
+                <div id="c" class="ui-tab-panel">我是Tab3</div>
+                <div id="d" class="ui-tab-panel" style="color:red">我是永远显示的哦</div>
+            </div>
+        </div>
+
+        <h2>动态化创建</h2>
+        <div id="wrapper2" class="wrapper"></div>
+        <div id="panels">
+            <div id="d1" class="ui-tab-panel">我是Tab1</div>
+            <div id="d2" class="ui-tab-panel">我是Tab2<div id="innerTab"></div></div>
+            <div id="d3" class="ui-tab-panel">我是Tab3</div>
+        </div>
+    </div>
+
+    <script>
+    require(
+        ['saber-tap', 'saber-dom', 'saber-ui', 'saber-tab', 'css!../src/tab.css'],
+        function( Tap, dom, ui, Tab ) {
+            var $ = dom.query;
+            var wrapper1 = $( '#wrapper1' );
+            var wrapper2 = $( '#wrapper2' );
+            var initSuccess = function () {
+                setTimeout(
+                    function () {
+                        $( '#wrapper1 .loading' ).style.display = 'none';
+                    },
+                    500
+                );
+            };
+
+            // 修正点击延迟
+            Tap.mixin( $( '.container' ) );
+
+            // 静态话
+            tabs = ui.init( wrapper1, { success: initSuccess } );
+            tabs[ 0 ].onBeforeChange = function ( oldIndex, newIndex ) {
+                return newIndex < 3; 
+            };
+
+
+
+            // 动态化
+            var tabItems = [
+                { title: 'Tab1', panel: 'd1' },
+                { title: 'Tab2', panel: 'd2' },
+                { title: 'Tab3', panel: 'd3' }
+            ];
+            var t1 = new Tab( { tabs: tabItems } );
+            t1.on( 'change', function ( ev, data ) {
+                console.info( 'change to %s: %o', data.index, data.tab );
+                if ( data.index === 1) {
+                    if ( !innerTab ) {
+                        innerTab = createInnerTab( $( '#innerTab' ) );
+                    }
+                }
+            });
+            t1.appendTo( wrapper2 );
+
+
+
+            var innerTab;
+            function createInnerTab( wraper ) {
+                var panel = $('#dd');
+                if ( !panel ) {
+                    panel = document.createElement('div');
+                    panel.id = 'dd';
+                    panel.className = 'innerTab';
+                    wraper.appendChild( panel );
+                }
+
+                var items = [
+                    { title: '新闻' },
+                    { title: '教育' },
+                    { title: '健康' }
+                ];
+                var t = new Tab( { tabs: items, activeIndex: 1 } );
+                t.onchange = function ( ev, data ) {
+                    $('#dd').innerHTML = 'NO.'
+                        + data.index
+                        + ' : '
+                        + data.tab.title ;
+                };
+                t.insertBefore( panel );
+
+                return t;
+            }
+        }
+    );
+
+    // http://alxgbsn.co.uk/2011/10/17/enable-css-active-pseudo-styles-in-mobile-safari/
+    document.addEventListener("touchstart", function() {}, false);
+    </script>
+</body>
+</html>
