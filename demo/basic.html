@@ -124,7 +124,7 @@
 
 
             // 静态话
-            tabs = ui.init( wrapper1, { success: initSuccess } );
+            var tabs = ui.init( wrapper1, { success: initSuccess } );
             tabs[ 0 ].beforeChange = function ( oldIndex, newIndex ) {
                 // console.info( 'from %s to %s', oldIndex, newIndex );
                 return newIndex !== 1;
