@@ -1,3 +1,6 @@
+.state-hidden {
+    display: none !important;
+}
 
 .ui-tab {
 
@@ -15,21 +18,18 @@
         z-index: 0;
         cursor: pointer;
         vertical-align: bottom;
-        font-size: 12px;
+        font-size: 14px;
         background-color: #fafafa;
         border-left: 1px solid #fafafa;
         border-right: 1px solid #fafafa;
         padding: 0 15px;
         display: inline-block;
-        *display: inline;
-        *zoom: 1;
 
-        &::after,
-        i {
+        &::after {
             content: '';
             position: absolute;
             top: 5px;
-            left: -2px;
+            left: -1px;
             width: 0;
             height: 16px;
             font-size: 0;
@@ -47,25 +47,16 @@
         background-color: #fff;
         border-left: 1px solid #dedede;
         border-right: 1px solid #e4e4e4;
-
-        &::after,
-        i {
-            display: none;
-        }
+        border-top: 1px solid #dedede;
     }
+}
 
-    .ui-tab-disabled {
-        z-index: 0;
-        height: 26px;
-        line-height: 23px;
-        margin-bottom: -1px;
+.ui-tab-disabled {
+    .ui-tab-navigator {
         background-color: gray;
-        border-left: 1px solid #dedede;
-        border-right: 1px solid #e4e4e4;
-
-        &::after,
-        i {
-            display: none;
-        }
+        opacity: .5;
+    }
+    li {
+        cursor: default;
     }
 }
