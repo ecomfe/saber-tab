@@ -357,8 +357,8 @@ define(function ( require ) {
             // 直接修改了`this.tabs`(`slice`)而发生各种定位错误
             // 此坑很隐晦，修改需谨慎
             // TODO: 每次都`indexOf`，性能上貌似一般，待想到好方法再修改
-            var index;
-            while ( (index = this.tabs.indexOf( tabItem )) >= 0 ) {
+            var index = 0;
+            while ( (index = this.tabs.indexOf( tabItem, index )) >= 0 ) {
                 this.removeByIndex( index );
             }
         },
