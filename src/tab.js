@@ -52,6 +52,14 @@ define(function ( require ) {
         activeIndex: 0,
 
         /**
+         * 标签页排列方向
+         * 
+         * @private
+         * @type {string} `horizontal` 或 `vertical`
+         */
+        orientation: 'horizontal',
+
+        /**
          * 标签页内容的模板
          * 
          * @private
@@ -79,7 +87,8 @@ define(function ( require ) {
 
         init: function ( options ) {
             var properties = lang.extend( {
-                tabs: this.tabs
+                tabs: this.tabs,
+                orientation: this.orientation
             }, options );
 
             // 若静态化解析构建时，初始化参数值都是字符串，这里多做下转换
@@ -157,6 +166,8 @@ define(function ( require ) {
                 rebuildTabs( this );
             }
 
+            this.addState( this.orientation );
+
             // 激活默认项
             activateTab( this, this.activeIndex );
         },
@@ -186,6 +197,12 @@ define(function ( require ) {
 
             if ( changes && changes.hasOwnProperty( 'activeIndex' ) ) {
                 activateTab( this, changes.activeIndex.newValue );
+            }
+
+            if ( changes && changes.hasOwnProperty( 'orientation' ) ) {
+                this.removeState( 'vertical' );
+                this.removeState( 'horizontal' );
+                this.addState( changes.orientation.newValue );
             }
         },
 

@@ -19,7 +19,12 @@ header {
 }
 
 .wrapper {
-    position: relative;
+    display: flex
+    align-items: flex-start;
+    box-shadow: 2px 2px 5px #DDD;
+    margin: 10px;
+    padding: 5px;
+    min-height: 200px;
 }
 
 .loading {
@@ -40,6 +45,19 @@ header {
     box-align: center;
 }
 
+
+
+
+.ui-tab {
+    display: inline-block;
+}
+
+.ui-tab-navigator {
+    -webkit-flex: 1;
+    flex: 1;
+    margin-right: 1rem;
+}
+
 .ui-tab-panel {
 	display: -webkit-box;
     display: box;
@@ -52,6 +70,19 @@ header {
 
     width: 300px;
     padding: 10px;
+}
+
+
+
+
+
+
+#wrapper2 .ui-tab-vertical {
+    float: left;
+}
+
+#tabConsole {
+    margin: 10px 0;
 }
 
 #innerTab {

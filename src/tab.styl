@@ -1,0 +1,71 @@
+@import "archer"
+
+normalize()
+
+// 盒模型计算模式
+// type border-box | content-box
+box-sizing(type = border-box)
+    -webkit-box-sizing: type
+    box-sizing: type
+
+// 圆角
+border-radius() {      
+    -webkit-border-radius: arguments
+    border-radius: arguments
+}
+
+
+
+.state-hidden
+    display: none !important
+
+// 默认边框
+$ui_tab_border = 1px solid #dedede
+
+.ui-tab {}
+
+.ui-tab-navigator
+    margin: 0
+    padding: 0
+    list-style: none
+    box-sizing()
+
+    .ui-tab-item
+        background: #F2F2F2
+        border: 1px solid #DFDFDF
+        cursor: pointer
+
+    .ui-tab-item-active
+        cursor: default
+        background: #FFF
+
+// 横向
+.ui-tab-horizontal
+    .ui-tab-navigator
+        overflow: hidden
+        // position: relative
+        border-bottom: 1px solid #DDD
+    .ui-tab-item
+        float: left
+        margin-right:2px
+        padding: 3px 10px
+        border-bottom: none
+        border-radius(2px, 2px, 0, 0)
+
+// 纵向
+.ui-tab-vertical
+    .ui-tab-navigator
+        float: left;
+        border-right: 1px solid #DDD;
+    .ui-tab-item
+        margin-bottom:2px;
+        padding: 3px 10px;
+        border-right: none;
+        border-radius(2px, 0, 0, 2px)
+
+// 禁用
+.ui-tab-disabled
+    .ui-tab-navigator
+        opacity: .3;
+    .ui-tab-item
+        cursor: default;
