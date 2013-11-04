@@ -92,6 +92,17 @@
                 <button id="toggleTabBtn">隐藏tab</button>
                 <button id="dirTabBtn">纵向tab</button>
             </div>
+
+            <div data-ui="type:Tab;">
+                <div id="d" class="ui-tab-panel">我是Tab a</div>
+                <div id="e" class="ui-tab-panel">我是Tab b</div>
+                <div id="f" class="ui-tab-panel">我是Tab c</div>
+                <ul>
+                    <li data-for="d">Tab a</li>
+                    <li data-for="e">Tab b</li>
+                    <li data-for="f">Tab c</li>
+                </ul>
+            </div>
         </div>
 
         <h2>动态化创建</h2>
@@ -126,7 +137,7 @@
 
 
             // 静态话
-            tabs = ui.init( wrapper1, { success: initSuccess } );
+            var tabs = ui.init( wrapper1, { success: initSuccess } );
             tabs[ 0 ].beforeChange = function ( oldIndex, newIndex ) {
                 // console.info( 'from %s to %s', oldIndex, newIndex );
                 return newIndex !== 1;

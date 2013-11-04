@@ -114,7 +114,9 @@ define(function ( require ) {
 
                         // 生成对应配置参数并存储，待最后更新
                         properties.tabs.push({
-                            title: node.innerText,
+                            title: node.textContent
+                                || node.innerText
+                                || node.getAttribute( 'title' ),
                             panel: node.getAttribute( 'data-for' )
                         });
                     },
@@ -156,7 +158,10 @@ define(function ( require ) {
             // 初始化`navigator`元素相关属性、样式及事件
             trigger.id = helper.getId( this, 'navigator' );
             helper.addPartClasses( this, 'navigator', trigger );
-            this.addDOMEvent( trigger, 'click', lang.bind( clickTab, this) );
+            helper.addDOMEvent(
+                this,
+                trigger, 'click', lang.bind( clickTab, this)
+            );
 
             // 动态构建所有tab元素
             // 这行不能提前到上面的三行之前执行
@@ -340,7 +345,12 @@ define(function ( require ) {
 
                 // 新加入的标签默认要隐藏起来
                 if ( tabItem.panel ) {
-                    dom.hide( dom.g( tabItem.panel ) );
+                    // `saber-dom`.`hide`方法必须传入`HTMLElement`
+                    // 否则会报错...
+                    var panelElement = dom.g( tabItem.panel );
+                    if ( panelElement ) {
+                        dom.hide( panelElement );
+                    }
                 }
             }
 
@@ -422,7 +432,10 @@ define(function ( require ) {
 
             // 隐藏对应的关联panel元素
             if ( removed.panel ) {
-                dom.hide( dom.g( removed.panel ) );
+                var panelElement = dom.g( removed.panel );
+                if ( panelElement ) {
+                    dom.hide( panelElement );
+                }
             }
 
             /**
