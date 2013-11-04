@@ -12,11 +12,6 @@
             css: 'css'
         },
         packages: [
-            {
-                name: 'saber-ui',
-                location: '../dep/saber-ui/src',
-                main: 'ui'
-            },
 
             {
                 name: 'saber-lang',
@@ -27,7 +22,7 @@
             {
                 name: 'saber-string',
                 location: '../dep/saber-string/src',
-                main: 'string'
+                main: 'main'
             },
 
             {
@@ -43,11 +38,11 @@
             },
 
             {
-                name: 'saber-tap',
-                location: '../dep/saber-tap/src',
-                main: 'tap'
+                name: 'saber-ui',
+                location: '../dep/saber-ui/src',
+                main: 'ui'
             },
-        
+
             {
                 name: 'saber-control',
                 location: '../dep/saber-control/src',
@@ -59,6 +54,7 @@
                 location: '../src',
                 main: 'tab'
             }
+
         ]
     });
     </script>
@@ -117,9 +113,13 @@
 
     <script>
     require(
-        ['saber-tap', 'saber-dom', 'saber-ui', 'saber-tab', 'css!../src/tab.css'],
-        function( Tap, dom, ui, Tab ) {
-            var $ = dom.query;
+        [
+            'saber-dom/selector',
+            'saber-ui',
+            'saber-tab', 'css!../src/tab.css'
+        ],
+        function( selector, ui, Tab ) {
+            var $ = selector.query;
             var wrapper1 = $( '#wrapper1' );
             var wrapper2 = $( '#wrapper2' );
             var initSuccess = function () {
@@ -130,10 +130,6 @@
                     500
                 );
             };
-
-
-            // 修正点击延迟
-            Tap.mixin( $( '.container' ) );
 
 
             // 静态话
@@ -227,9 +223,6 @@
             }
         }
     );
-
-    // http://alxgbsn.co.uk/2011/10/17/enable-css-active-pseudo-styles-in-mobile-safari/
-    document.addEventListener("touchstart", function() {}, false);
     </script>
 </body>
 </html>

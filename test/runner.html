@@ -16,16 +16,11 @@
     <script>
     require.config({
         packages: [
-            {
-                name: 'saber-ui',
-                location: '../dep/saber-ui/src',
-                main: 'ui'
-            },
 
             {
                 name: 'saber-string',
                 location: '../dep/saber-string/src',
-                main: 'string'
+                main: 'main'
             },
 
             {
@@ -45,6 +40,12 @@
                 location: '../dep/saber-emitter/src',
                 main: 'emitter'
             },
+
+            {
+                name: 'saber-ui',
+                location: '../dep/saber-ui/src',
+                main: 'ui'
+            },
         
             {
                 name: 'saber-control',
@@ -57,6 +58,7 @@
                 location: '../src',
                 main: 'tab'
             }
+
         ]
     });
 

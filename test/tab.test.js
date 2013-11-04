@@ -1,8 +1,7 @@
 define(function() {
 
-    var lang = require( 'saber-lang' );
-    var ui = require( 'saber-ui' );
     var Tab = require( 'saber-tab' );
+
     var type = function ( obj ) {
         return Object.prototype.toString.call( obj ).slice( 8, -1 ).toLowerCase();
     };

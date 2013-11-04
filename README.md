@@ -6,11 +6,12 @@ saber-tab
 ### Dependencies
 
 
-+ [saber-ui](https://github.com/ecomfe/saber-ui)
 + [saber-lang](https://github.com/ecomfe/saber-lang)
 + [saber-string](https://github.com/ecomfe/saber-string)
 + [saber-dom](https://github.com/ecomfe/saber-dom)
++ [saber-ui](https://github.com/ecomfe/saber-ui)
 + [saber-control](https://github.com/ecomfe/saber-control)
++ [archer](https://github.com/ecomfe/archer)
 
 ### Usage
 
@@ -18,11 +19,13 @@ saber-tab
 
 通过`ln`软连接依赖模块：
 
-	$ ln -s ../saber-ui ./dep/
 	$ ln -s ../saber-lang ./dep/
 	$ ln -s ../saber-string ./dep/
 	$ ln -s ../saber-dom ./dep/
+	$ ln -s ../saber-emitter ./dep/
+	$ ln -s ../saber-ui ./dep/
 	$ ln -s ../saber-control ./dep/
+	$ ln -s ../archer ./dep/
 
 ### API
 	TODO
