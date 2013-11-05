@@ -10,7 +10,6 @@ exports.documentRoot = __dirname + '/../';
 
 // 引入archer，需npm配置'archer'依赖
 var archer = require( '../dep/archer/lib/archer' );
-// var archer = require( 'archer' );
 
 exports.getLocations = function () {
     return [

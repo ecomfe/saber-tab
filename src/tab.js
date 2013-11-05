@@ -8,22 +8,24 @@
 
 define(function ( require ) {
 
-    var ui = require( 'saber-ui' );
     var lang = require( 'saber-lang' );
     var string = require( 'saber-string' );
     var dom = require( 'saber-dom' );
-    var helper = require( 'saber-control/helper' );
     var Control = require( 'saber-control' );
+    var helper = require( 'saber-control/helper' );
+    var component = require( 'saber-ui/component' );
 
     /**
      * 选项卡控件
      * 
      * @exports Tab
      * @extends module:Control
-     * @requires ui
      * @requires lang
+     * @requires string
      * @requires dom
+     * @requires ui~component
      * @requires Control
+     * @requires Control~helper
      * @fires module:Tab#add
      * @fires module:Tab#remove
      * @fires module:Tab#change
@@ -48,14 +50,17 @@ define(function ( require ) {
          * 
          * @private
          * @type {number}
+         * @default 0
          */
         activeIndex: 0,
 
         /**
          * 标签页排列方向
+         * 有效值 `horizontal` 或 `vertical`
          * 
          * @private
-         * @type {string} `horizontal` 或 `vertical`
+         * @type {string}
+         * @default horizontal
          */
         orientation: 'horizontal',
 
@@ -64,6 +69,7 @@ define(function ( require ) {
          * 
          * @private
          * @type {string}
+         * @default ${title}
          */
         itemTemplate: '${title}',
 
@@ -72,6 +78,7 @@ define(function ( require ) {
          * 
          * @private
          * @type {Array}
+         * @default []
          * @example
          * // 每一项是具有title和panel属性的Object。
          * // title属性为字符串，代表显示的标题。
@@ -638,7 +645,7 @@ define(function ( require ) {
 
     lang.inherits( Tab, Control );
 
-    ui.register( Tab );
+    component.register( Tab );
 
     return Tab;
 
