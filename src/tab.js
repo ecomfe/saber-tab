@@ -18,18 +18,20 @@ define(function ( require ) {
     /**
      * 选项卡控件
      * 
+     * @constructor
      * @exports Tab
-     * @extends module:Control
-     * @requires lang
-     * @requires string
-     * @requires dom
-     * @requires ui~component
-     * @requires Control
-     * @requires Control~helper
-     * @fires module:Tab#add
-     * @fires module:Tab#remove
-     * @fires module:Tab#change
-     * @fires module:Tab#click
+     * @class
+     * @extends Control
+     * @requires saber-lang
+     * @requires saber-string
+     * @requires saber-dom
+     * @requires saber-control
+     * @requires saber-control/helper
+     * @requires saber-ui/component
+     * @fires Tab#add
+     * @fires Tab#remove
+     * @fires Tab#change
+     * @fires Tab#click
      */
     var Tab = function() {
         Control.apply( this, arguments );
@@ -60,7 +62,7 @@ define(function ( require ) {
          * 
          * @private
          * @type {string}
-         * @default horizontal
+         * @default 'horizontal'
          */
         orientation: 'horizontal',
 
@@ -69,7 +71,7 @@ define(function ( require ) {
          * 
          * @private
          * @type {string}
-         * @default ${title}
+         * @default '${title}'
          */
         itemTemplate: '${title}',
 
@@ -188,7 +190,6 @@ define(function ( require ) {
          * 创建控件主元素
          * 
          * @override
-         * @param {Object} options 构造函数传入的配置参数
          * @return {HTMLElement}
          */
         createMain: function () {
@@ -317,6 +318,7 @@ define(function ( require ) {
          * @param {string} tabItem.title 标签页的标题
          * @param {string=} tabItem.panel 标签页对应的容器的id
          * @param {number} index 新标签页要插入的位置索引
+         * @fires Tab#add
          */
         insert: function( tabItem, index ) {
             if ( this.isDisabled() ) {
@@ -362,7 +364,7 @@ define(function ( require ) {
             }
 
             /**
-             * @event module:Tab#add
+             * @event Tab#add
              * @param {Object} ev 事件参数对象
              * @param {string} ev.type 事件类型
              * @param {Tab} ev.target 触发事件的控件对象
@@ -402,6 +404,7 @@ define(function ( require ) {
          * 
          * @public
          * @param {number} index 需要移除的标签页的索引
+         * @fires Tab#remove
          */
         removeByIndex: function ( index ) {
             if ( this.isDisabled() ) {
@@ -446,7 +449,7 @@ define(function ( require ) {
             }
 
             /**
-             * @event module:Tab#remove
+             * @event Tab#remove
              * @param {Object} ev 事件参数对象
              * @param {string} ev.type 事件类型
              * @param {Tab} ev.target 触发事件的控件对象
@@ -499,12 +502,12 @@ define(function ( require ) {
      * 
      * @inner
      * @param {Tab} this Tab控件实例
-     * @param {Event} ev 触发事件的事件对象
-     * @fires module:Tab#click
+     * @param {Event} event 触发事件的事件对象
+     * @fires Tab#click
      */
-    function clickTab( ev ) {
+    function clickTab( event ) {
         var main = this.main;
-        var target = ev.target;
+        var target = event.target;
         var tabElement = target;
 
         if ( this.isDisabled() ) {
@@ -512,11 +515,13 @@ define(function ( require ) {
         }
 
         /**
-         * @event module:Tab#click
+         * @event Tab#click
          * @param {Object} ev 事件参数对象
          * @param {string} ev.type 事件类型
+         * @param {Tab} ev.target 触发事件的控件对象
+         * @param {Event} event MouseEvent对象
          */
-        this.emit( 'click', ev );
+        this.emit( 'click', event );
 
         while ( tabElement && tabElement.nodeName !== 'LI' ) {
             // 尽量减少回溯深度，最多回溯至主控元素
@@ -551,7 +556,7 @@ define(function ( require ) {
      * @inner
      * @param {Tab} tab Tab控件实例
      * @parma {number} index 待激活的标签页的下标
-     * @fires module:Tab#change
+     * @fires Tab#change
      */
     function activateTab( tab, index ) {
         tab.tabs.forEach(function ( tabItem, i ) {
@@ -566,7 +571,7 @@ define(function ( require ) {
         });
 
         /**
-         * @event module:Tab#change
+         * @event Tab#change
          * @param {Object} ev 事件参数对象
          * @param {string} ev.type 事件类型
          * @param {Tab} ev.target 触发事件的控件对象
