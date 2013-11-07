@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>saber-button performance test</title>
+    <link rel="stylesheet" href="http://firede.github.io/saber-static/jasmine/1.3.1/jasmine.css">
+    <script src="http://firede.github.io/saber-static/jasmine/1.3.1/jasmine.js"></script>
+    <script src="http://firede.github.io/saber-static/jasmine/1.3.1/jasmine-html.js"></script>
+    <script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/1-6-6/esl.js"></script>
+    <script src="http://gmu.baidu.com/dist/zepto.js"></script>
+    <script src="http://gmu.baidu.com/src/extend/touch.js"></script>
+    <script src="http://gmu.baidu.com/src/extend/highlight.js"></script>
+    <script src="http://gmu.baidu.com/src/core/gmu.js"></script>
+    <script src="http://gmu.baidu.com/src/core/event.js"></script>
+    <script src="http://gmu.baidu.com/src/core/widget.js"></script>
+    <script src="http://gmu.baidu.com/src/widget/tabs/tabs.js"></script>
+    <style>
+    #outputer {
+        margin-bottom: 40px;
+        font-size: 1rem;
+    }
+    #outputer > div {
+        display: inline-block;
+        vertical-align: top;
+        text-align: center;
+    }
+    #outputer h2 {
+        margin: .5rem auto;
+        font-weight: bold;
+        border-bottom: .1rem solid rgba(156, 156, 156, 1);
+    }
+    #outputer i {
+        font-size: .8rem;
+    }
+    #outputer ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        box-sizing: border-box;
+    }
+    #outputer li {
+        padding: .3rem 1rem;
+        text-align: left;
+        border: none;
+        border-bottom: 1px solid rgb(216, 216, 216);
+    }
+    </style>  
+</head>
+
+<body>
+    <div id="outputer">
+        <p>Cell: `node size` : `use time`(ms)</p>
+        <div>
+            <h2>ESUI</h2>
+            <ul data-for="esui"></ul>
+        </div>
+        <div>
+            <h2>GMU</h2>
+            <ul data-for="gmu"></ul>
+        </div>
+        <div>
+            <h2>Saber</h2>
+            <ul data-for="saber"></ul>
+        </div>
+    </div>
+    <div id="setupWrapper"></div>
+    
+    <script>
+    require.config({
+        packages: [
+
+            {
+                name: 'esui',
+                location: '../dep/esui/src',
+                main: 'main'
+            },
+
+
+            {
+                name: 'saber-string',
+                location: '../dep/saber-string/src',
+                main: 'main'
+            },
+
+            {
+                name: 'saber-lang',
+                location: '../dep/saber-lang/src',
+                main: 'main'
+            },
+
+            {
+                name: 'saber-dom',
+                location: '../dep/saber-dom/src',
+                main: 'main'
+            },
+
+            {
+                name: 'saber-emitter',
+                location: '../dep/saber-emitter/src',
+                main: 'emitter'
+            },
+
+            {
+                name: 'saber-ui',
+                location: '../dep/saber-ui/src',
+                main: 'main'
+            },
+        
+            {
+                name: 'saber-control',
+                location: '../dep/saber-control/src',
+                main: 'main'
+            },
+
+            {
+                name: 'saber-tab',
+                location: '../src',
+                main: 'tab'
+            }
+
+        ]
+    });
+
+    (function() {
+        var jasmineEnv = jasmine.getEnv();
+        jasmineEnv.updateInterval = 250;
+
+        var htmlReporter = new jasmine.HtmlReporter();
+        jasmineEnv.addReporter(htmlReporter);
+
+        jasmineEnv.specFilter = function(spec) {
+            return htmlReporter.specFilter(spec);
+        };
+
+        require(
+            [
+                'saber.performance.test',
+                'esui.performance.test',
+                'gmu.performance.test'
+            ],
+            function() {
+                jasmineEnv.execute();
+            }
+        );
+    })();
+    </script>
+</body>
+</html>
