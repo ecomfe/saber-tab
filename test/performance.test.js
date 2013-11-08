@@ -39,7 +39,7 @@ define(function() {
                 
                 var _html = html.replace( rIndex, power );
                 while ( power-- > 0 ) {
-                    html += html.replace( rIndex, new Array( power + 1 ).join( '${i}' ) );
+                    html += html.replace( rIndex, new Array( power + 1 ).join( 'x' ) + '${i}' );
                     _html += html.replace( rIndex, power );
                 }
                 wrapper.innerHTML = _html;
