@@ -100,8 +100,8 @@ define(function ( require ) {
                 orientation: this.orientation
             }, options );
 
-            // 若静态化解析构建时，初始化参数值都是字符串，这里多做下转换
-            properties.activeIndex = properties.activeIndex | 0;
+            // // 若静态化解析构建时，初始化参数值都是字符串，这里多做下转换
+            // properties.activeIndex = properties.activeIndex | 0;
 
             // 找到了`[data-role="navigator"]`的元素，抛弃其它配置，
             // 否则，尝试找到第一个ul子元素，找到同上
@@ -118,8 +118,8 @@ define(function ( require ) {
                 // 解析DOM重新生成`options`.`tabs`配置数据
                 this.triggers.forEach(
                     function ( node ) {
-                        // 添加部件相关样式
-                        helper.addPartClasses( this, 'item', node );
+                        // // 添加部件相关样式
+                        // helper.addPartClasses( this, 'item', node );
 
                         // 生成对应配置参数并存储，待最后更新
                         properties.tabs.push({
@@ -147,7 +147,6 @@ define(function ( require ) {
         initStructure: function () {
             var trigger = this.trigger;
             var needRebuild = !trigger;
-            var selectedIndex = this.selectedIndex;
 
             // 到这里已经没用了
             this.trigger = null;
@@ -178,6 +177,16 @@ define(function ( require ) {
             // 所以，需要等上面三行初始化完成后才行
             if ( needRebuild ) {
                 rebuildTabs( this );
+            }
+            else {
+                // 静态构建时确保所有`trigger`生成了正确的class
+                this.triggers.forEach(
+                    function ( node ) {
+                        // 添加部件相关样式
+                        helper.addPartClasses( this, 'item', node );
+                    },
+                    this
+                );
             }
 
             this.addState( this.orientation );
@@ -234,6 +243,17 @@ define(function ( require ) {
             if ( this.disabled ) {
                 delete properties.tabs;
                 delete properties.activeIndex;
+            }
+
+            // 防止因传入非number类型值引起不必要的repaint
+            // 比如 `ui.init` 静态化构建时:
+            // 在 `render` 之前的 `initOptions` 过程中
+            // 会存在 `setProperties` 调用，
+            // 而此时的大部分 `property` 的值因都是从DOM属性解析而来
+            // 所以都是字符串值, 这里就需要提前做下转化以防万一
+            if ( properties.hasOwnProperty( 'activeIndex' )
+                && 'string' === typeof properties.activeIndex ) {
+                properties.activeIndex = properties.activeIndex | 0;
             }
 
             // 如果`tabs`配置变了，则会导致`navigator`整个重新渲染，

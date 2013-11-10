@@ -19,6 +19,7 @@ header {
 }
 
 .wrapper {
+    position: relative;
     display: flex
     align-items: flex-start;
     box-shadow: 2px 2px 5px #DDD;
@@ -50,6 +51,7 @@ header {
 
 .ui-tab {
     display: inline-block;
+    font-size: 1.2rem;
 }
 
 .ui-tab-navigator {
@@ -68,15 +70,24 @@ header {
     -webkit-box-align: center;
     box-align: center;
 
+    box-sizing: border-box;
+
     width: 300px;
     padding: 10px;
 }
 
 
 
+.container .ui-button {
+    font-size: 1.2rem ;
+    padding: .3rem .6rem;
+}
 
 
 
+
+
+/* basic */
 #wrapper2 .ui-tab-vertical {
     float: left;
 }
@@ -96,4 +107,53 @@ header {
 .innerTab {
     padding: 10px;
     text-align: center;
+}
+
+
+
+/* menu */
+.dropmenu {
+    position: absolute;
+    z-index: 9;
+    left: 70px;
+    top: 0;
+
+    margin-top: 5px;
+    height: 200px;
+    width: 300px;
+    overflow: hidden;
+
+    border: 1px solid #dfdfdf;
+    background-color: #fff;
+}
+.dropmenu-hidden {
+    display: none;
+}
+
+.dropmenu .menu,
+.dropmenu .panel {
+    display: inline-block;
+    height: 100%;
+    overflow: hidden;
+    vertical-align: top;
+    word-break: break-all;
+}
+.dropmenu .menu {
+    border-right: 1px solid #ddd;
+    text-align: right;
+    width: 5.5rem;
+    padding-top: 2px;
+}
+.dropmenu .panel {
+    padding: 5px;
+    max-width: 190px;
+}
+
+.dropmenu .ui-tab-vertical .ui-tab-navigator {
+    border-right: none;
+}
+.dropmenu .ui-tab-panel {
+    width: 100%;
+    padding: 0;
+    margin: 0;
 }
