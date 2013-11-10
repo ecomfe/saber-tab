@@ -213,8 +213,19 @@
             tab.on( 'change', function () {
                 if ( panelScroll ) {
                     // panelScroll.reset( { left: 0, top: 0 } );
+                    panelScroll.repaint();
                 }
             });
+            tab.on( 'afterdispose', function () {
+                    if ( tabScroll ) {
+                        tabScroll.destroy();
+                        tabScroll = null;
+                    }
+                    if ( panelScroll ) {
+                        panelScroll.destroy();
+                        panelScroll = null;
+                    }
+                });
 
 
 
@@ -275,6 +286,19 @@
                 mytab.on( 'change', function ( ev, data ) {
                     var panel = tab.get( 'tabs' )[ data.index ].panel;
                     $( '#mypanel' ).innerHTML = $( '#' + panel ).innerHTML;
+                    if ( mypanelScroll ) {
+                        mypanelScroll.repaint();
+                    }
+                });
+                mytab.on( 'afterdispose', function () {
+                    if ( mytabScroll ) {
+                        mytabScroll.destroy();
+                        mytabScroll = null;
+                    }
+                    if ( mypanelScroll ) {
+                        mypanelScroll.destroy();
+                        mypanelScroll = null;
+                    }
                 });
             }
 
@@ -287,7 +311,7 @@
 
             var mypanelScroll;
             function initDropMenuPanelScroll() {
-                window.p = mypanelScroll = scroll(
+                mypanelScroll = scroll(
                     $( '#mypanel' ).parentNode
                 );
             }
