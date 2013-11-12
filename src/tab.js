@@ -76,6 +76,13 @@ define(function ( require ) {
         itemTemplate: '${title}',
 
         /**
+         * 是否支持滚动
+         * 
+         * @type {boolean}
+         */
+        scroll: false,
+
+        /**
          * 标签页的列表
          * 
          * @private
@@ -189,7 +196,47 @@ define(function ( require ) {
                 );
             }
 
+            // 更新显示方向
             this.addState( this.orientation );
+
+            // 拖动支持
+            if ( this.scroll ) {
+                var firstChild = this.main.children[ 0 ];
+                var scroller = dom.query( '[data-role=scroll]', this.main );
+                if ( firstChild !== scroller ) {
+                    if ( !scroller ) {
+                        scroller = document.createElement( 'div' );
+                        scroller.setAttribute( 'data-role', 'scroll' );
+                    }
+
+                    this.main.insertBefore( scroller, firstChild );
+                    scroller.appendChild( trigger );
+                }
+
+                scroller.id = helper.getId( this, 'scroller' );
+                helper.addPartClasses( this, 'scroller', scroller );
+
+                if ( scroller.children[ 0 ] !== trigger ) {
+                    scroller.insertBefore( trigger, scroller.children[ 0 ] );
+                }
+
+                dom.setStyle( this.main, 'overflow', 'hidden' );
+
+                // TODO: 待删除，转换成
+                var Scroll = require( 'saber-scroll' );
+                var _scroller = this.scroller = Scroll( this.main );
+                var _scrollerFN = this.scrollRepaint = function () {
+                    _scroller.repaint();
+                };
+                window.addEventListener( 'resize', _scrollerFN );
+                this.on( 'add', _scrollerFN );
+                this.on( 'remove', _scrollerFN );
+                this.on( 'afterdisponse', function () {
+                    window.removeEventListener( 'resize', _scrollerFN );
+                    _scroller.destroy();
+                    _scroller = _scrollerFN = null;
+                });
+            }
 
             // 激活默认项
             activateTab( this, this.activeIndex );

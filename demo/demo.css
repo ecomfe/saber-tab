@@ -49,15 +49,10 @@ header {
 
 
 
-.ui-tab {
-    display: inline-block;
-    font-size: 1.2rem;
-}
+
 
 .ui-tab-navigator {
-    -webkit-flex: 1;
-    flex: 1;
-    margin-right: 1rem;
+    font-weight: bold;
 }
 
 .ui-tab-panel {
@@ -72,7 +67,6 @@ header {
 
     box-sizing: border-box;
 
-    width: 300px;
     padding: 10px;
 }
 
@@ -88,6 +82,23 @@ header {
 
 
 /* basic */
+#wrapper1 .ui-tab {
+    border: 1px solid #d4d4d4;
+}
+
+#wrapper1 .ui-tab-navigator {
+    background-color: #f4f4f4;
+    color: #4a4a4a;
+}
+#wrapper1 .ui-tab-item {
+    border: solid #d4d4d4;
+    border-width: 1px 0 1px 1px;
+}
+#wrapper1 .ui-tab-item-active {
+    background-color: #fff;
+    border-width: 1px 0 0 1px;
+}
+
 #wrapper2 .ui-tab-vertical {
     float: left;
 }
@@ -123,7 +134,7 @@ header {
     width: 300px;
     overflow: hidden;
 
-    border: 1px solid #dfdfdf;
+    box-shadow: 3px 3px 6px #ddd;
     background-color: #fff;
 }
 .dropmenu-hidden {
@@ -138,19 +149,9 @@ header {
     vertical-align: top;
     word-break: break-all;
 }
-.dropmenu .menu {
-    border-right: 1px solid #ddd;
-    text-align: right;
-    width: 5.5rem;
-    padding-top: 2px;
-}
 .dropmenu .panel {
     padding: 5px;
     max-width: 190px;
-}
-
-.dropmenu .ui-tab-vertical .ui-tab-navigator {
-    border-right: none;
 }
 .dropmenu .ui-tab-panel {
     width: 100%;

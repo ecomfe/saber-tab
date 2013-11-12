@@ -101,7 +101,7 @@
             <div data-ui="type:Button;id:menu;">分类</div>
             <div class="dropmenu dropmenu-hidden">
                 <div class="menu">
-                    <div data-ui="type:Tab;id:list;orientation:vertical;">
+                    <div data-ui="type:Tab;id:list;orientation:vertical;scroll:true;">
                         <ul data-role="navigator">
                             <li data-for="a1">教育</li>
                             <li data-for="a2">动漫</li>
@@ -157,13 +157,14 @@
             'saber-tap',
             'saber-dom',
             'saber-scroll',
+            'saber-scroll/plugin/scrollbar',
             'saber-ui',
             'saber-button',
             'saber-tab',
             'css!../dep/saber-button/src/button.css',
             'css!../src/tab.css'
         ],
-        function( Tap, dom, scroll, ui, Button, Tab ) {
+        function( Tap, dom, Scroll, ScrollBar, ui, Button, Tab ) {
             var $ = dom.query;
             var wrapper1 = $( '#wrapper3' );
             var wrapper2 = $( '#wrapper4' );
@@ -177,20 +178,14 @@
                 );
             };
 
-            // Tap.mixin( wrapper1 );
-
 
             // 静态化
             ui.init( wrapper1, { success: initSuccess } );
             
             var menu = ui.get( 'menu' );
             var tab = ui.get( 'list' );
-
-            // 修复300ms点击延迟
-            Tap.mixin( menu.get( 'main' ) );
-
-            var tabScroll;
             var panelScroll;
+
             menu.onclick = function () {
                 var cls = 'dropmenu-hidden';
                 var isHide = dom.hasClass( dropmenu, cls );
@@ -199,33 +194,33 @@
                     isHide ? 'removeClass' : 'addClass'
                 ]( dropmenu, cls );
 
-                if ( isHide && !tabScroll ) {
-                    tabScroll = scroll(
-                        tab.get( 'main' ).parentNode
-                    );
+                // TODO: 待解耦，插件机制完成后删除
+                if ( isHide && tab.scroller ) {
+                    tab.scroller.repaint();
                 }
 
                 if ( isHide && !panelScroll) {
-                    panelScroll = scroll( $( '.panel' ) );
+                    panelScroll = Scroll(
+                        $( '.panel' ),
+                        { scrollbar: true }
+                    );
                 }
             };
 
             tab.on( 'change', function () {
                 if ( panelScroll ) {
-                    // panelScroll.reset( { left: 0, top: 0 } );
                     panelScroll.repaint();
                 }
             });
             tab.on( 'afterdispose', function () {
-                    if ( tabScroll ) {
-                        tabScroll.destroy();
-                        tabScroll = null;
-                    }
-                    if ( panelScroll ) {
-                        panelScroll.destroy();
-                        panelScroll = null;
-                    }
-                });
+                if ( panelScroll ) {
+                    panelScroll.destroy();
+                    panelScroll = null;
+                }
+            });
+
+            // 修复300ms点击延迟
+            Tap.mixin( menu.get( 'main' ) );
 
 
 
@@ -247,10 +242,6 @@
 
                 if ( isHide && !mytab ) {
                     initDropMenuTab();
-                }
-
-                if ( isHide && !mytabScroll ) {
-                    initDropMenuTabScroll();
                 }
 
                 if ( isHide && !mypanelScroll ) {
@@ -279,10 +270,10 @@
                 );
                 mytab = new Tab({
                     tabs: tabs,
+                    scroll: true,
                     activeIndex: 2,
                     orientation: 'vertical'
                 });
-                mytab.appendTo( mydropmenu.querySelector( '.menu' ) );
                 mytab.on( 'change', function ( ev, data ) {
                     var panel = tab.get( 'tabs' )[ data.index ].panel;
                     $( '#mypanel' ).innerHTML = $( '#' + panel ).innerHTML;
@@ -291,30 +282,34 @@
                     }
                 });
                 mytab.on( 'afterdispose', function () {
-                    if ( mytabScroll ) {
-                        mytabScroll.destroy();
-                        mytabScroll = null;
-                    }
                     if ( mypanelScroll ) {
                         mypanelScroll.destroy();
                         mypanelScroll = null;
                     }
                 });
-            }
-
-            var mytabScroll;
-            function initDropMenuTabScroll() {
-                mytabScroll = scroll(
-                    mytab.get( 'main' ).parentNode
-                );
+                mytab.appendTo( mydropmenu.querySelector( '.menu' ) );
             }
 
             var mypanelScroll;
             function initDropMenuPanelScroll() {
-                mypanelScroll = scroll(
-                    $( '#mypanel' ).parentNode
+                mypanelScroll = Scroll(
+                    $( '#mypanel' ).parentNode,
+                    { scrollbar: true }
                 );
             }
+
+
+
+            var t2 = new Tab({
+                tabs: tab.get( 'tabs' ).map(function ( tab ) {
+                    return { title: tab.title };
+                }),
+                scroll: true,
+                activeIndex: 2
+                // ,
+                // orientation: 'vertical'
+            });
+            t2.appendTo( wrapper2 );
         }
     );
 

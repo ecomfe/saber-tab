@@ -12,7 +12,8 @@
         "saber-lang": "~0.2.0",
         "saber-dom": "~0.3.0",
         "saber-ui": "~0.1.0",
-        "saber-control": "~0.1.0"
+        "saber-control": "~0.1.0",
+        "saber-scroll": "~0.1.1"
     },
     "license": "BSD",
     "repository": "git://github.com/ecomfe/saber-tab.git",

@@ -1,7 +1,5 @@
 @import "archer"
 
-normalize()
-
 // 盒模型计算模式
 // type border-box | content-box
 box-sizing(type = border-box)
@@ -23,46 +21,62 @@ border-radius()
 $ui_tab_border = 1px solid #dedede
 
 .ui-tab
+    -webkit-user-select: none;
+
+.ui-tab-scroller
+    .ui-tab-navigator
+        display: table
+        table-layout: fixed
+    .ui-tab-item
+        display: table-cell
+
 
 .ui-tab-navigator
+    display: -webkit-box
     margin: 0
     padding: 0
+    // width: 100%
+    white-space: nowrap
     list-style: none
-    box-sizing()
+    background: #2773dc
+    color: #fff
 
     .ui-tab-item
-        background: #F2F2F2
-        border: 1px solid #DFDFDF
+        // display: list-item
+        padding: .5rem .8rem
+
         cursor: pointer
         text-align: center;
+        white-space: nowrap
+
+        -webkit-box-flex: 1
+        box-flex: 1
+
+        box-sizing(content-box)
 
     .ui-tab-item-active
         cursor: default
-        background: #FFF
+        background: #0c4da8
 
 // 横向
 .ui-tab-horizontal
+    //
+
     .ui-tab-navigator
-        overflow: hidden
-        // position: relative
-        border-bottom: 1px solid #DDD
+        //
+
     .ui-tab-item
-        float: left
-        margin-right:2px
-        padding: 3px 10px
-        border-bottom: none
-        border-radius(2px, 2px, 0, 0)
+        //
 
 // 纵向
 .ui-tab-vertical
+    height: 100%
+
     .ui-tab-navigator
-        float: left;
-        border-right: 1px solid #DDD;
+        display: block
+
     .ui-tab-item
-        margin-bottom:2px;
-        padding: 3px 10px;
-        border-right: none;
-        border-radius(2px, 0, 0, 2px)
+        display: block
 
 // 禁用
 .ui-tab-disabled
