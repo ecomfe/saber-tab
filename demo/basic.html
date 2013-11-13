@@ -106,17 +106,6 @@
                 <button id="toggleTabBtn">隐藏tab</button>
                 <button id="dirTabBtn">纵向tab</button>
             </div>
-
-            <div data-ui="type:Tab;">
-                <div id="d" class="ui-tab-panel">我是Tab a</div>
-                <div id="e" class="ui-tab-panel">我是Tab b</div>
-                <div id="f" class="ui-tab-panel">我是Tab c</div>
-                <ul>
-                    <li data-for="d">Tab a</li>
-                    <li data-for="e">Tab b</li>
-                    <li data-for="f">Tab c</li>
-                </ul>
-            </div>
         </div>
 
         <h2>动态化创建</h2>
@@ -200,7 +189,10 @@
                 { title: 'Tab2', panel: 'd2' },
                 { title: 'Tab3', panel: 'd3' }
             ];
-            var t1 = new Tab( { tabs: tabItems, orientation: 'vertical' } );
+            var t1 = new Tab({
+                // orientation: 'vertical',
+                tabs: tabItems
+            });
             t1.on( 'change', function ( ev, data ) {
                 // console.info( 'change to %s: %o', data.index, data.tab );
                 if ( data.index === 1) {
@@ -219,7 +211,7 @@
                 if ( !panel ) {
                     panel = document.createElement('div');
                     panel.id = 'dd';
-                    panel.className = 'innerTab';
+                    panel.className = 'ui-tab-panel';
                     wraper.appendChild( panel );
                 }
 

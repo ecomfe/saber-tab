@@ -221,9 +221,6 @@ define(function ( require ) {
                     scroller.insertBefore( trigger, scroller.children[ 0 ] );
                 }
 
-                dom.setStyle( this.main, 'overflow', 'hidden' );
-
-
                 // TODO: 第三参数`options`
                 plugin.active( this, 'Scroll' );
             }
