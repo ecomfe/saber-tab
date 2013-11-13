@@ -14,6 +14,7 @@ define(function ( require ) {
     var Control = require( 'saber-control' );
     var helper = require( 'saber-control/helper' );
     var component = require( 'saber-ui/component' );
+    var plugin = require( 'saber-ui/plugin' );
 
     /**
      * 选项卡控件
@@ -222,20 +223,9 @@ define(function ( require ) {
 
                 dom.setStyle( this.main, 'overflow', 'hidden' );
 
-                // TODO: 待删除，转换成
-                var Scroll = require( 'saber-scroll' );
-                var _scroller = this.scroller = Scroll( this.main );
-                var _scrollerFN = this.scrollRepaint = function () {
-                    _scroller.repaint();
-                };
-                window.addEventListener( 'resize', _scrollerFN );
-                this.on( 'add', _scrollerFN );
-                this.on( 'remove', _scrollerFN );
-                this.on( 'afterdisponse', function () {
-                    window.removeEventListener( 'resize', _scrollerFN );
-                    _scroller.destroy();
-                    _scroller = _scrollerFN = null;
-                });
+
+                // TODO: 第三参数`options`
+                plugin.active( this, 'Scroll' );
             }
 
             // 激活默认项
