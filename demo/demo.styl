@@ -2,6 +2,9 @@
 
 normalize()
 
+_tap_highlight()
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+
 _display_box(orient = horizontal, pack = center, align = center)
     // display: box
     // box-orient: orient
@@ -13,7 +16,7 @@ _display_box(orient = horizontal, pack = center, align = center)
     -webkit-box-align: align
 
 html {
-  -webkit-tap-highlight-color: rgba(0,0,0,0)
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
 }
 
 header {
@@ -40,7 +43,8 @@ header {
 
 .loading {
     _display_box()
-    absolute( (z-index 99) (left 0) (top 0) )
+    absolute: left 0, top 0
+    z-index: 99
     background-color: rgba(0, 0, 0, 0.2)
     color: blue
     size(100%)
@@ -120,7 +124,8 @@ header {
 
 /* menu */
 .dropmenu
-    absolute( (z-index 9) (left px_to_rem(70px)) (top 0) )
+    absolute: left px_to_rem(70px), top 0
+    z-index: 9
     size(px_to_rem(300px), px_to_rem(200px))
     margin-top: px_to_rem(5px)
     overflow: hidden
