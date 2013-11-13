@@ -1,24 +1,8 @@
 @import "archer"
 
-// 盒模型计算模式
-// type border-box | content-box
-box-sizing(type = border-box)
-    -webkit-box-sizing: type
-    box-sizing: type
-
-// 圆角
-border-radius()
-    -webkit-border-radius: arguments
-    border-radius: arguments
-
-
-
 
 .state-hidden
     display: none !important
-
-// 默认边框
-$ui_tab_border = 1px solid #dedede
 
 .ui-tab
     -webkit-user-select: none;
@@ -32,7 +16,7 @@ $ui_tab_border = 1px solid #dedede
 
 
 .ui-tab-navigator
-    display: -webkit-box
+    display: box
     margin: 0
     padding: 0
     // width: 100%
@@ -43,16 +27,14 @@ $ui_tab_border = 1px solid #dedede
 
     .ui-tab-item
         // display: list-item
-        padding: .5rem .8rem
+        box-flex: 1
+        box-sizing: content-box
+
+        padding: px_to_rem(10px) px_to_rem(14px)
 
         cursor: pointer
         text-align: center;
         white-space: nowrap
-
-        -webkit-box-flex: 1
-        box-flex: 1
-
-        box-sizing(content-box)
 
     .ui-tab-item-active
         cursor: default

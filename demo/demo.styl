@@ -1,0 +1,147 @@
+@import "archer"
+
+normalize()
+
+_display_box(orient = horizontal, pack = center, align = center)
+    // display: box
+    // box-orient: orient
+    // box-pack: pack
+    // box-align: align
+    display: -webkit-box
+    -webkit-box-orient: orient
+    -webkit-box-pack: pack
+    -webkit-box-align: align
+
+html {
+  -webkit-tap-highlight-color: rgba(0,0,0,0)
+}
+
+header {
+    background: #252525
+    color: #fff
+    margin-bottom: px_to_rem(10px)
+    padding: px_to_rem(8px)
+    font-size: px_to_rem(22px)
+}
+
+.container {
+    padding: px_to_rem(10px)
+}
+
+.wrapper {
+    relative()
+    // display: flex
+    // align-items: flex-start
+    box-shadow: px_to_rem(2px) px_to_rem(2px) px_to_rem(5px) #DDD
+    margin: px_to_rem(10px)
+    padding: px_to_rem(5px)
+    min-height: px_to_rem(200px)
+}
+
+.loading {
+    _display_box()
+    absolute( (z-index 99) (left 0) (top 0) )
+    background-color: rgba(0, 0, 0, 0.2)
+    color: blue
+    size(100%)
+}
+
+
+
+
+
+
+.ui-tab-navigator {
+    font-weight: bold
+}
+
+.ui-tab-panel {
+    // display: box
+    // box-orient: horizontal
+    // box-pack: center
+    // box-align: center
+    _display_box()
+
+    box-sizing: border-box
+
+    padding: px_to_rem(10px)
+}
+
+
+
+.container .ui-button {
+    font-size: px_to_rem(16px)
+    padding: px_to_rem(5px) px_to_rem(10px)
+}
+
+
+
+
+
+/* basic */
+#wrapper1
+    //
+    .ui-tab
+        border: px_to_rem(1px) solid #d4d4d4
+
+    .ui-tab-navigator
+        background-color: #f4f4f4
+        color: #4a4a4a
+
+    .ui-tab-item
+        border: solid #d4d4d4
+        border-width: px_to_rem(1px) 0 px_to_rem(1px) px_to_rem(1px)
+
+    .ui-tab-item-active
+        background-color: #fff
+        border-width: px_to_rem(1px) 0 0 px_to_rem(1px)
+
+    .ui-tab-vertical
+        float: left
+
+#tabConsole
+    margin: px_to_rem(10px) 0
+
+#innerTab
+    display: inline-block
+    margin: px_to_rem(10px)
+    border: px_to_rem(1px) solid gray
+    width: px_to_rem(250px)
+    padding: px_to_rem(10px)
+
+.innerTab
+    padding: px_to_rem(10px)
+    text-align: center
+
+
+
+
+
+
+/* menu */
+.dropmenu
+    absolute( (z-index 9) (left px_to_rem(70px)) (top 0) )
+    size(px_to_rem(300px), px_to_rem(200px))
+    margin-top: px_to_rem(5px)
+    overflow: hidden
+    box-shadow: px_to_rem(3px) px_to_rem(3px) px_to_rem(6px) #ddd
+    background-color: #fff
+
+    .menu, .panel
+        display: inline-block
+        height: 100%
+        vertical-align: top
+        word-break: break-all
+
+    .panel
+        padding: px_to_rem(5px)
+        max-width: px_to_rem(190px)
+
+    .ui-tab-panel
+        width: 100%
+        padding: 0
+        margin: 0
+
+.dropmenu-hidden
+    display: none
+    
