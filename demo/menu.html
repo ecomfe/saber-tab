@@ -220,8 +220,8 @@
                 }
             });
 
-            // 修复300ms点击延迟
-            Tap.mixin( menu.get( 'main' ) );
+            // // 修复300ms点击延迟
+            // Tap.mixin( menu.get( 'main' ) );
 
 
 
@@ -311,6 +311,11 @@
                 // orientation: 'vertical'
             });
             t2.appendTo( wrapper2 );
+
+
+
+            // 修复300ms点击延迟
+            Tap.mixin( $( '.container' ) );
         }
     );
 

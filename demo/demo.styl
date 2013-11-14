@@ -116,24 +116,37 @@ header {
 
 
 /* menu */
+#wrapper3 .ui-tab,
+#wrapper4 .ui-tab
+    background: #2773dc;
+
 .dropmenu
-    absolute: left px_to_rem(70px), top 0
+    display: flex
+    absolute: left 50%, top px_to_rem(25px)
     z-index: 9
-    size(px_to_rem(300px), px_to_rem(200px))
-    margin-top: px_to_rem(5px)
+    size(70%, 70%)
+    margin-left: -35%
     overflow: hidden
     box-shadow: px_to_rem(3px) px_to_rem(3px) px_to_rem(6px) #ddd
     background-color: #fff
 
     .menu, .panel
         display: inline-block
+        flex: 1
         height: 100%
         vertical-align: top
         word-break: break-all
 
+    .menu
+        min-width: px_to_rem(90px)
+
     .panel
+        relative()
+        flex: 2
         padding: px_to_rem(5px)
-        max-width: px_to_rem(190px)
+
+    .ui-tab
+        background: #2773dc
 
     .ui-tab-panel
         width: 100%

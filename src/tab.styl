@@ -27,14 +27,15 @@
 
     .ui-tab-item
         // display: list-item
-        box-flex: 1
+        flex: 1
         box-sizing: content-box
 
         padding: px_to_rem(10px) px_to_rem(14px)
 
         cursor: pointer
         text-align: center;
-        white-space: nowrap
+        // white-space: nowrap
+        ellipsis()
 
     .ui-tab-item-active
         cursor: default
