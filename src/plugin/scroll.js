@@ -114,6 +114,7 @@ define(function ( require ) {
         enable: function () {
             // TODO: 待`saber-scroll`实现API
             // this.instance.enable();
+            this.instance.repaint();
         },
 
         /**
