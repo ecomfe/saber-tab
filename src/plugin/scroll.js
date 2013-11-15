@@ -39,7 +39,7 @@ define(function ( require ) {
          * @private
          * @type {string}
          */
-        type: 'Scroll',
+        type: 'TabScroll',
 
         /**
          * 插件初始化
@@ -49,7 +49,7 @@ define(function ( require ) {
          * 此参数不做加工过滤，直接传给`saber-scroll`构造函数
          */
         initialize: function ( options ) {
-            this.options = options;
+            this.options = options || {};
             this.target.on( 'afterrender', lang.bind( this.render, this ));
         },
 

@@ -200,8 +200,14 @@ define(function ( require ) {
             // 更新显示方向
             this.addState( this.orientation );
 
-            // 拖动支持
+            // `navigator`部件滚动支持
             if ( this.scroll ) {
+                // 初始化前需要确保`saber-scroll`的标准结构复合要求
+                // `<container><main>...</main></container>`
+                // 
+                // 1. 查找`scroller`部件元素，并检查是否为`控件主元素`的`第一子元素`
+                //    若没找到，则自动创建并插入到第一子元素位置
+                //    若找到，但不是第一子元素，则直接移动到第一子元素位置
                 var firstChild = this.main.children[ 0 ];
                 var scroller = dom.query( '[data-role=scroll]', this.main );
                 if ( firstChild !== scroller ) {
@@ -214,15 +220,19 @@ define(function ( require ) {
                     scroller.appendChild( trigger );
                 }
 
+                // 确保`scroller`部件元素设置了正确的`id`和`部件样式`
                 scroller.id = helper.getId( this, 'scroller' );
                 helper.addPartClasses( this, 'scroller', scroller );
 
+                // 这里最后检查并确保`navigator`部件元素
+                // 是`scroller`部件元素的`第一子元素`
                 if ( scroller.children[ 0 ] !== trigger ) {
                     scroller.insertBefore( trigger, scroller.children[ 0 ] );
                 }
 
-                // TODO: 第三参数`options`
-                plugin.active( this, 'Scroll' );
+                // 万事俱备，只欠东风
+                // 初始化`TabScroll`插件
+                plugin.active( this, 'TabScroll', this.options.scrollOptions );
             }
 
             // 激活默认项
