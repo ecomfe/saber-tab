@@ -2,36 +2,21 @@
 
 normalize()
 
-_tap_highlight()
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
 
-_display_box(orient = horizontal, pack = center, align = center)
-    // display: box
-    // box-orient: orient
-    // box-pack: pack
-    // box-align: align
-    display: -webkit-box
-    -webkit-box-orient: orient
-    -webkit-box-pack: pack
-    -webkit-box-align: align
-
-html {
+html
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
-}
 
-header {
+header
     background: #252525
     color: #fff
     margin-bottom: px_to_rem(10px)
     padding: px_to_rem(8px)
     font-size: px_to_rem(22px)
-}
 
-.container {
+.container
     padding: px_to_rem(10px)
-}
 
-.wrapper {
+.wrapper
     relative()
     // display: flex
     // align-items: flex-start
@@ -39,44 +24,47 @@ header {
     margin: px_to_rem(10px)
     padding: px_to_rem(5px)
     min-height: px_to_rem(200px)
-}
 
-.loading {
-    _display_box()
-    absolute: left 0, top 0
+.loading
+    display: box
+    box-orient: horizontal
+    box-pack: center
+    box-align: center
+
+    absolute: left, top
     z-index: 99
-    background-color: rgba(0, 0, 0, 0.2)
-    color: blue
+    
     size(100%)
-}
-
-
-
-
-
-
-.ui-tab-navigator {
+    
+    background-color: rgba(0, 0, 0, 0.6)
+    color: #fff
+    font-size: 150%
     font-weight: bold
-}
-
-.ui-tab-panel {
-    _display_box()
-    box-sizing: border-box
-    padding: px_to_rem(10px)
-}
-
-
-
-.container .ui-button {
-    font-size: px_to_rem(16px)
-    padding: px_to_rem(5px) px_to_rem(10px)
-}
 
 
 
 
 
-/* basic */
+
+
+.container
+    //
+    .ui-tab-navigator
+        font-weight: bold
+
+    .ui-tab-panel
+        box-sizing: content-box
+        padding: px_to_rem(6px)
+
+    .ui-button
+        font-size: px_to_rem(16px)
+        padding: px_to_rem(5px) px_to_rem(10px)
+
+
+
+
+
+/* basic.html */
 #wrapper1
     //
     .ui-tab
@@ -115,7 +103,7 @@ header {
 
 
 
-/* menu */
+/* menu.html */
 #wrapper3 .ui-tab,
 #wrapper4 .ui-tab
     background: #2773dc;
@@ -124,14 +112,13 @@ header {
     display: flex
     absolute: left 50%, top px_to_rem(25px)
     z-index: 9
-    size(70%, 70%)
     margin-left: -35%
+    size(70%, 70%)
     overflow: hidden
     box-shadow: px_to_rem(3px) px_to_rem(3px) px_to_rem(6px) #ddd
     background-color: #fff
 
     .menu, .panel
-        display: inline-block
         flex: 1
         height: 100%
         vertical-align: top
@@ -143,15 +130,11 @@ header {
     .panel
         relative()
         flex: 2
-        padding: px_to_rem(5px)
+        width: 100%
 
     .ui-tab
         background: #2773dc
 
-    // .ui-tab-panel
-    //     width: 100%
-    //     padding: 0
-    //     margin: 0
 
 .dropmenu-hidden
     display: none
