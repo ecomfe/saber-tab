@@ -104,8 +104,7 @@ define(function ( require ) {
 
         init: function ( options ) {
             var properties = lang.extend( {
-                tabs: this.tabs,
-                orientation: this.orientation
+                tabs: this.tabs
             }, options );
 
             // // 若静态化解析构建时，初始化参数值都是字符串，这里多做下转换
@@ -197,9 +196,6 @@ define(function ( require ) {
                 );
             }
 
-            // 更新显示方向
-            this.addState( this.orientation );
-
             // `navigator`部件滚动支持
             if ( this.scroll ) {
                 // 初始化前需要确保`saber-scroll`的标准结构复合要求
@@ -236,7 +232,7 @@ define(function ( require ) {
             }
 
             // 激活默认项
-            activateTab( this, this.activeIndex );
+            // activateTab( this, this.activeIndex );
         },
 
         /**
@@ -257,18 +253,23 @@ define(function ( require ) {
          * @param {Object=} changes 变更过的属性的集合
          */
         repaint: function ( changes ) {
+            Control.prototype.repaint.apply( this, arguments );
+
+            // 仅允许渲染后的重绘
             if ( changes && changes.hasOwnProperty( 'tabs' ) ) {
                 rebuildTabs( this, changes.tabs );
             }
 
-            if ( changes && changes.hasOwnProperty( 'activeIndex' ) ) {
-                activateTab( this, changes.activeIndex.newValue );
+            // 首次渲染 或 更改了激活项索引，则更新重绘
+            if ( !changes || changes.hasOwnProperty( 'activeIndex' ) ) {
+                activateTab( this, this.activeIndex );
             }
 
-            if ( changes && changes.hasOwnProperty( 'orientation' ) ) {
+            // 同上
+            if ( !changes || changes.hasOwnProperty( 'orientation' ) ) {
                 this.removeState( 'vertical' );
                 this.removeState( 'horizontal' );
-                this.addState( changes.orientation.newValue );
+                this.addState( this.orientation );
             }
         },
 
@@ -284,7 +285,7 @@ define(function ( require ) {
             // 这里直接使用了`delete`，外部调用时小心使用
             // 若不希望传入的参数被更改，最好传入副本进来
             // TODO: 找时间考虑换种方式
-            if ( this.disabled ) {
+            if ( this.disabled && this.rendered ) {
                 delete properties.tabs;
                 delete properties.activeIndex;
             }

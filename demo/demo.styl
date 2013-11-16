@@ -69,6 +69,7 @@ header
     //
     .ui-tab
         border: px_to_rem(1px) solid #d4d4d4
+        clearfix()
 
     .ui-tab-navigator
         background-color: #f4f4f4
@@ -76,14 +77,26 @@ header
 
     .ui-tab-item
         border: solid #d4d4d4
-        border-width: px_to_rem(1px) 0 px_to_rem(1px) px_to_rem(1px)
+        border-width: 0 0 px_to_rem(1px) px_to_rem(1px)
+        &:first-child
+            border-width: 0 0 px_to_rem(1px) 0
 
     .ui-tab-item-active
         background-color: #fff
-        border-width: px_to_rem(1px) 0 0 px_to_rem(1px)
+        border-width: 0 0 0 px_to_rem(1px)
+        &:first-child
+            border-width: 0
 
     .ui-tab-vertical
-        float: left
+        //
+        .ui-tab-navigator,
+        .ui-tab-panel        
+            float: left
+
+        .ui-tab-item
+            border-width: px_to_rem(1px) 0 0 0
+            &:first-child
+                border-width: 0
 
 #wrapper2
     //
