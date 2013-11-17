@@ -17,7 +17,7 @@ define(function ( require ) {
      * 选项卡滚动插件
      * 
      * @constructor
-     * @exports Scroll
+     * @exports TabScroll
      * @class
      * @requires saber-lang
      * @requires saber-scroll
@@ -88,8 +88,6 @@ define(function ( require ) {
             var onDisable = lang.bind( this.disable, this );
             tab.on( 'disable', onDisable );
             tab.on( 'hide', onDisable );
-
-            tab.on( 'afterdispose', lang.bind( this.dispose, this ) );
         },
 
         /**
@@ -138,7 +136,7 @@ define(function ( require ) {
 
     };
 
-    plugin.register( Scroll );
+    plugin.registerPlugin( Scroll );
 
     return Scroll;
 

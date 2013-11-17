@@ -33,6 +33,11 @@ define(function ( require ) {
      * @fires Tab#remove
      * @fires Tab#change
      * @fires Tab#click
+     * @param {Object=} options 初始化配置参数
+     * @param {string=} options.id 控件标识
+     * @param {HTMLElement=} options.main 控件主元素
+     * @param {string=} options.skin 控件皮肤
+     * @param {*=} options.* 其余初始化参数由各控件自身决定
      */
     var Tab = function() {
         Control.apply( this, arguments );
@@ -228,7 +233,11 @@ define(function ( require ) {
 
                 // 万事俱备，只欠东风
                 // 初始化`TabScroll`插件
-                plugin.active( this, 'TabScroll', this.options.scrollOptions );
+                plugin.activePlugin(
+                    this,
+                    'TabScroll',
+                    this.options.scrollOptions
+                );
             }
 
             // 激活默认项
