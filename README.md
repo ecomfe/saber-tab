@@ -8,6 +8,7 @@
 + [saber-lang](https://github.com/ecomfe/saber-lang)
 + [saber-string](https://github.com/ecomfe/saber-string)
 + [saber-dom](https://github.com/ecomfe/saber-dom)
++ [saber-scroll](https://github.com/ecomfe/saber-scroll)
 + [saber-ui](https://github.com/ecomfe/saber-ui)
 + [saber-control](https://github.com/ecomfe/saber-control)
 
