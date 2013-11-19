@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Tab - Saber UI Demo</title>
+    <link rel="stylesheet" href="../src/tab.css">
     <link rel="stylesheet" href="demo.css">
     <script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/1-6-6/esl.js"></script>
     <script>
@@ -15,68 +16,68 @@
 
             {
                 name: 'saber-lang',
-                location: '../dep/saber-lang/src',
+                location: '../dep/saber-lang/0.2.0/src',
                 main: 'main'
             },
 
             {
                 name: 'saber-string',
-                location: '../dep/saber-string/src',
+                location: '../dep/saber-string/0.2.0-0/src',
                 main: 'main'
             },
 
             {
                 name: 'saber-dom',
-                location: '../dep/saber-dom/src',
+                location: '../dep/saber-dom/0.3.0/src',
                 main: 'main'
             },
 
             {
                 name: 'saber-emitter',
-                location: '../dep/saber-emitter/src',
+                location: '../dep/saber-emitter/0.3.0/src',
                 main: 'emitter'
             },
 
             {
-                name: 'saber-ui',
-                location: '../dep/saber-ui/src',
-                main: 'main'
-            },
-
-            {
-                name: 'saber-control',
-                location: '../dep/saber-control/src',
-                main: 'main'
-            },
-
-            {
-                name: 'saber-button',
-                location: '../dep/saber-button/src',
-                main: 'button'
-            },
-
-            {
                 name: 'saber-promise',
-                location: '../dep/saber-promise/src',
+                location: '../dep/saber-promise/0.1.1/src',
                 main: 'promise'
             },
 
             {
                 name: 'saber-run',
-                location: '../dep/saber-run/src',
+                location: '../dep/saber-run/0.1.0/src',
                 main: 'main'
             },
 
             {
                 name: 'saber-scroll',
-                location: '../dep/saber-scroll/src',
+                location: '../dep/saber-scroll/0.1.1-beta.1/src',
                 main: 'main'
             },
 
             {
                 name: 'saber-tap',
-                location: '../dep/saber-tap/src',
+                location: '../dep/saber-tap/0.1.0-0/src',
                 main: 'tap'
+            },
+
+            {
+                name: 'saber-ui',
+                location: '../dep/saber-ui/0.1.0/src',
+                main: 'main'
+            },
+
+            {
+                name: 'saber-control',
+                location: '../dep/saber-control/0.1.0/src',
+                main: 'main'
+            },
+
+            {
+                name: 'saber-button',
+                location: '../dep/saber-button/0.1.0/src',
+                main: 'button'
             },
 
             {
@@ -191,8 +192,7 @@
             'saber-button',
             'saber-tab',
             'saber-tab/plugin/scroll',
-            'css!../dep/saber-button/src/button.css',
-            'css!../src/tab.css'
+            'css!../dep/saber-button/0.1.0/src/button.css'
         ],
         function( Tap, dom, Scroll, ScrollBar, ui, Button, Tab ) {
             var $ = dom.query;
@@ -246,6 +246,9 @@
                 panelScroll && panelScroll.destroy();
                 panelScroll = null;
             });
+
+            // 修复300ms点击延迟
+            Tap.mixin( menu.get( 'main' ) );
 
 
 
@@ -331,9 +334,9 @@
             }
 
 
-
             // 修复300ms点击延迟
-            Tap.mixin( $( '.container' ) );
+            Tap.mixin( mymenu.get( 'main' ) );
+
         }
     );
 

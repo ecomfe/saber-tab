@@ -32,7 +32,6 @@ define(function ( require ) {
      * @fires Tab#add
      * @fires Tab#remove
      * @fires Tab#change
-     * @fires Tab#click
      * @param {Object=} options 初始化配置参数
      * @param {string=} options.id 控件标识
      * @param {HTMLElement=} options.main 控件主元素
@@ -376,7 +375,7 @@ define(function ( require ) {
          * 添加一个标签页
          * 
          * @public
-         * @param {Object} tabItem 标签页的配置
+         * @param {Object} tabItem 标签页配置对象
          * @param {string} tabItem.title 标签页的标题
          * @param {string=} tabItem.panel 标签页对应的容器的id
          */
@@ -388,7 +387,7 @@ define(function ( require ) {
          * 在指定位置添加一个标签页
          * 
          * @public
-         * @param {Object} tabItem 标签页的配置
+         * @param {Object} tabItem 标签页配置对象
          * @param {string} tabItem.title 标签页的标题
          * @param {string=} tabItem.panel 标签页对应的容器的id
          * @param {number} index 新标签页要插入的位置索引
@@ -455,7 +454,7 @@ define(function ( require ) {
          * 移除一个标签页
          * 
          * @public
-         * @param {Object} tabItem 标签页的配置
+         * @param {Object} tabItem 标签页配置对象
          */
         remove: function ( tabItem ) {
             if ( this.isDisabled() ) {
@@ -527,9 +526,9 @@ define(function ( require ) {
              * @param {Object} ev 事件参数对象
              * @param {string} ev.type 事件类型
              * @param {Tab} ev.target 触发事件的控件对象
-             * @param {Object} data 当前激活的标签信息
+             * @param {Object} data 当前移除的标签信息
              * @param {number} data.index 标签索引
-             * @param {Object} data.tab 标签数据项
+             * @param {Object} data.tab 标签数据对象
              * @param {string} data.tab.title 标签显示标题
              * @param {string=} data.tab.panel 标签关联的dom容器id
              */
@@ -540,7 +539,7 @@ define(function ( require ) {
          * 选择激活标签
          * 
          * @public
-         * @param {number} index tab标签索引
+         * @param {number} index 需要激活的标签页索引
          */
         select: function ( index ) {
             if ( this.isDisabled() ) {
@@ -575,9 +574,7 @@ define(function ( require ) {
      * 点击某个标签时的切换逻辑
      * 
      * @inner
-     * @param {Tab} this Tab控件实例
-     * @param {Event} event 触发事件的事件对象
-     * @fires Tab#click
+     * @param {Event} event DOMEvent对象
      */
     function clickTab( event ) {
         var main = this.main;
@@ -587,15 +584,6 @@ define(function ( require ) {
         if ( this.isDisabled() ) {
             return;
         }
-
-        /**
-         * @event Tab#click
-         * @param {Object} ev 事件参数对象
-         * @param {string} ev.type 事件类型
-         * @param {Tab} ev.target 触发事件的控件对象
-         * @param {Event} event MouseEvent对象
-         */
-        this.emit( 'click', event );
 
         while ( tabElement && tabElement.nodeName !== 'LI' ) {
             // 尽量减少回溯深度，最多回溯至主控元素
@@ -651,7 +639,7 @@ define(function ( require ) {
          * @param {Tab} ev.target 触发事件的控件对象
          * @param {Object} data 当前激活的标签信息
          * @param {number} data.index 标签索引
-         * @param {Object} data.tab 标签数据项
+         * @param {Object} data.tab 标签数据对象
          * @param {string} data.tab.title 标签显示标题
          * @param {string=} data.tab.panel 标签关联的dom容器id
          */

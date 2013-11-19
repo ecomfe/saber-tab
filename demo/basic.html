@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Tab - Saber UI Demo</title>
+    <link rel="stylesheet" href="../src/tab.css">
     <link rel="stylesheet" href="demo.css">
     <script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/1-6-6/esl.js"></script>
     <script>
@@ -15,55 +16,55 @@
 
             {
                 name: 'saber-lang',
-                location: '../dep/saber-lang/src',
+                location: '../dep/saber-lang/0.2.0/src',
                 main: 'main'
             },
 
             {
                 name: 'saber-string',
-                location: '../dep/saber-string/src',
+                location: '../dep/saber-string/0.2.0-0/src',
                 main: 'main'
             },
 
             {
                 name: 'saber-dom',
-                location: '../dep/saber-dom/src',
+                location: '../dep/saber-dom/0.3.0/src',
                 main: 'main'
             },
 
             {
                 name: 'saber-emitter',
-                location: '../dep/saber-emitter/src',
+                location: '../dep/saber-emitter/0.3.0/src',
                 main: 'emitter'
             },
 
             {
                 name: 'saber-promise',
-                location: '../dep/saber-promise/src',
+                location: '../dep/saber-promise/0.1.1/src',
                 main: 'promise'
             },
 
             {
                 name: 'saber-run',
-                location: '../dep/saber-run/src',
+                location: '../dep/saber-run/0.1.0/src',
                 main: 'main'
             },
 
             {
                 name: 'saber-scroll',
-                location: '../dep/saber-scroll/src',
+                location: '../dep/saber-scroll/0.1.1-beta.1/src',
                 main: 'main'
             },
 
             {
                 name: 'saber-ui',
-                location: '../dep/saber-ui/src',
+                location: '../dep/saber-ui/0.1.0/src',
                 main: 'main'
             },
 
             {
                 name: 'saber-control',
-                location: '../dep/saber-control/src',
+                location: '../dep/saber-control/0.1.0/src',
                 main: 'main'
             },
 
@@ -123,7 +124,7 @@
         [
             'saber-dom/selector',
             'saber-ui',
-            'saber-tab', 'css!../src/tab.css'
+            'saber-tab'
         ],
         function( selector, ui, Tab ) {
             var $ = selector.query;
