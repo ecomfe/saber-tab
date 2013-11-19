@@ -34,6 +34,7 @@
 
 	注：此属性为`true`不能保证拖动正确启用，需确保[`saber-scroll`](https://github.com/ecomfe/saber-scroll)模块已正确引入
 
+更多配置项，请参考父类[`Control`](https://github.com/ecomfe/saber-control#option)
 
 ### Property
 
@@ -41,7 +42,7 @@
 
 当前活动的标签页的索引，类型`Number`，默认值`0`
 
-注：若想改变选中项，请直接使用[`select`](#select)方法，尽量避免直接更改此属性值。
+注：若想改变选中项，请直接使用[`select`](#selectindex)方法，尽量避免直接更改此属性值。
 
 #### orientation
 
@@ -80,7 +81,7 @@
 ```
 
 
-其它实例属性，请参考父类[`Control`](https://github.com/ecomfe/saber-control#property)
+更多实例属性，请参考父类[`Control`](https://github.com/ecomfe/saber-control#property)
 
 
 
@@ -231,7 +232,7 @@ console.info( tab.get( 'activeIndex' ) ); // 1
 `ev`: 事件信息对象
 
 + `type`: 事件类型名，类型`String`
-+ `target`: 触发事件的按钮控件对象，类型[`Button`](https://github.com/ecomfe/saber-button)
++ `target`: 触发事件的按钮控件对象，类型[`Tab`](https://github.com/ecomfe/saber-tab)
 
 `data`: 当前移除的标签信息，类型`Object`，包含项：
 
@@ -258,7 +259,7 @@ tab.add( { title: 'c', panel: 'd' } );
 `ev`: 事件信息对象
 
 + `type`: 事件类型名，类型`String`
-+ `target`: 触发事件的按钮控件对象，类型[`Button`](https://github.com/ecomfe/saber-button)
++ `target`: 触发事件的按钮控件对象，类型[`Tab`](https://github.com/ecomfe/saber-tab)
 
 `data`: 当前移除的标签信息，类型`Object`，包含项：
 
@@ -285,7 +286,7 @@ tab.removeByIndex( 1 );
 `ev`: 事件信息对象
 
 + `type`: 事件类型名，类型`String`
-+ `target`: 触发事件的按钮控件对象，类型[`Button`](https://github.com/ecomfe/saber-button)
++ `target`: 触发事件的按钮控件对象，类型[`Tab`](https://github.com/ecomfe/saber-tab)
 
 `data`: 当前激活标签的信息对象，类型`Object`，包含项：
 
