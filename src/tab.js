@@ -111,6 +111,16 @@ define(function ( require ) {
                 tabs: this.tabs
             }, options );
 
+            // 静态化构建时，所有属性值从DOM属性而来，均是字符串
+            // 用正则，而没用`!!`，是因为：
+            // `saber-scroll`控件部分属性默认值为`true`
+            // 若静态话配置为`'false'`时，`!!'false'`就失效了为`true`
+            // TODO：找到更好的方式后再替换
+            if ( options.hasOwnProperty( 'scroll' ) ) {
+                this.options.scroll = options.scroll
+                                    = /\s?true\s?/i.test( options.scroll );
+            }
+
             // // 若静态化解析构建时，初始化参数值都是字符串，这里多做下转换
             // properties.activeIndex = properties.activeIndex | 0;
 

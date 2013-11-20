@@ -31,7 +31,7 @@ Tab控件的`Scroll`插件
 
 `options`: 构造函数传入的配置参数，类型`Object`，参数`可选`
 
-***注：参数`options`不做加工过滤，直接传给`saber-scroll`构造函数***
+***注：参数`options`不做加工过滤，直接传给[`saber-scroll`](https://github.com/ecomfe/saber-scroll#scrollele-options)构造函数***
 
 
 ### .render()
