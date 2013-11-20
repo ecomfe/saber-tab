@@ -10,7 +10,7 @@
 + [saber-scroll](https://github.com/ecomfe/saber-sroll)
 + [saber-ui/component](https://github.com/ecomfe/saber-ui)
 + [saber-ui/plugin](https://github.com/ecomfe/saber-ui)
-+ [saber-controlled](https://github.com/ecomfe/saber-control)
++ [saber-control](https://github.com/ecomfe/saber-control)
 
 ## Extend
 
@@ -27,11 +27,11 @@
 
 + `scroll`: 是否支持拖动。类型`Boolean`，默认值`false`
 
-	注：此属性为`true`不能保证拖动正确启用，需确保插件`saber-tab/plugin/scroll`已正确引入，否则此属性配置无效
+	***注：此属性为`true`不能保证拖动正确启用，需确保插件[`./plugin/scroll`](api-plugin-scroll.md)已正确引入，否则此属性配置无效***
 
 + `plugin.scroll`: 拖动插件初始化配置。类型`Object`，参数`可选`。当`scroll`为`true`时才有效
 
-	此参数可用配置项，请参考[`saber-scroll`](https://github.com/ecomfe/saber-scroll#scrollele-options)
+	**此参数可用配置项，请参考[`saber-scroll`](https://github.com/ecomfe/saber-scroll#scrollele-options)**
 
 更多配置项，请参考父类[`Control`](https://github.com/ecomfe/saber-control/blob/master/doc/api-control.md#option)
 
