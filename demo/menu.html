@@ -129,7 +129,7 @@
             <div data-ui="type:Button;id:menu;">分类</div>
             <div class="dropmenu dropmenu-hidden">
                 <div class="menu">
-                    <div data-ui="type:Tab;id:list;orientation:vertical;scroll:true;">
+                    <div data-ui="type:Tab;id:list;orientation:vertical;scroll:true;" data-ui-plugin-scroll="horizontal:false;">
                         <ul data-role="navigator">
                             <li data-for="a1">教育</li>
                             <li data-for="a2">动漫</li>
@@ -263,8 +263,14 @@
                 tabs: tab.get( 'tabs' ).map(function ( tab ) {
                     return { title: tab.title };
                 }),
-                scroll: true,
-                activeIndex: 2
+                activeIndex: 2,
+                scroll: true, // 启用拖动插件
+                plugins: {
+                    // 拖动插件配置
+                    scroll: {
+                        horizontal: false // 禁止横向滚动
+                    }
+                }
             });
             navigatorMenu.insertBefore( $$( 'h3', wrapper2)[ 1 ] );
 

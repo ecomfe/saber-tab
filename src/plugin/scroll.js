@@ -9,9 +9,10 @@
 define(function ( require ) {
 
     var lang = require( 'saber-lang' );
-    var css = require( 'saber-dom/css' );
+    var dom = require( 'saber-dom' );
     var SaberScroll = require( 'saber-scroll' );
     var plugin = require( 'saber-ui/plugin' );
+    var helper = require( 'saber-control/helper' );
 
     /**
      * 选项卡滚动插件
@@ -42,6 +43,14 @@ define(function ( require ) {
         type: 'TabScroll',
 
         /**
+         * 选项卡控件实例
+         * 
+         * @public
+         * @type {Tab=}
+         */
+        target: null,
+
+        /**
          * 插件初始化
          * 
          * @protected
@@ -51,6 +60,61 @@ define(function ( require ) {
         initialize: function ( options ) {
             this.options = options || {};
             this.target.on( 'afterrender', lang.bind( this.render, this ));
+
+            // 当目标控件是经过静态化构建而来时（`ui.init`）
+            // 插件的配置对象的每项值均为字符串，这里需要做下转化以免出现校验错误
+            [
+                'scrollbar', 'horizontal', 'vertical'
+            ].forEach(function ( key ) {
+                if ( this.hasOwnProperty( key ) ) {
+                    // 静态化构建时，所有属性值从DOM属性而来，均是字符串
+                    // 用正则，而没用`!!`，是因为：
+                    // 插件的配置项有些是默认为`true`
+                    // 如果静态话配置是`'false'`时，`!!'false'`就失效了为`true`
+                    // TODO：找到更好的方式后再替换
+                    this[ key ] = /\s?true\s?/i.test( this[ key ] );
+                }
+            }, this.options);
+        },
+
+        /**
+         * 初始化DOM结构，仅在第一次渲染时调用
+         * 
+         * @protected
+         */
+        initStructure: function () {
+            var tab = this.target;
+            var trigger = dom.g( helper.getId( tab, 'navigator' ) );
+
+            // 初始化前需要确保`saber-scroll`的标准结构复合要求
+            // `<container><main>...</main></container>`
+            // 
+            // 1. 查找`scroller`部件元素，并检查是否为`控件主元素`的`第一子元素`
+            //    若没找到，则自动创建并插入到第一子元素位置
+            //    若找到，但不是第一子元素，则直接移动到第一子元素位置
+            var firstChild = tab.main.children[ 0 ];
+            var scroller = dom.query( '[data-role=scroll]', tab.main );
+            if ( firstChild !== scroller ) {
+                if ( !scroller ) {
+                    scroller = document.createElement( 'div' );
+                    scroller.setAttribute( 'data-role', 'scroll' );
+                }
+
+                tab.main.insertBefore( scroller, firstChild );
+                scroller.appendChild( trigger );
+            }
+
+            // 确保`scroller`部件元素设置了正确的`id`和`部件样式`
+            scroller.id = helper.getId( tab, 'scroller' );
+            helper.addPartClasses( tab, 'scroller', scroller );
+
+            // 这里最后检查并确保`navigator`部件元素
+            // 是`scroller`部件元素的`第一子元素`
+            if ( scroller.children[ 0 ] !== trigger ) {
+                scroller.insertBefore( trigger, scroller.children[ 0 ] );
+            }
+
+            dom.setStyle( tab.main, 'overflow', 'hidden' );
         },
 
         /**
@@ -65,9 +129,9 @@ define(function ( require ) {
 
             this.rendered = !0;
 
-            var tab = this.target;
-            css.setStyle( tab.main, 'overflow', 'hidden' );
+            this.initStructure();
 
+            var tab = this.target;
             var scroller = this.instance = SaberScroll(
                                                 tab.main,
                                                 this.options
