@@ -117,8 +117,10 @@ define(function ( require ) {
             // 若静态话配置为`'false'`时，`!!'false'`就失效了为`true`
             // TODO：找到更好的方式后再替换
             if ( options.hasOwnProperty( 'scroll' ) ) {
-                this.options.scroll = options.scroll
-                                    = /\s?true\s?/i.test( options.scroll );
+                // 这里顺便同步修复下属性`scroll`和初始化配置`scroll`的类型
+                properties.scroll = this.options.scroll
+                                  = options.scroll
+                                  = /\s?true\s?/i.test( options.scroll );
             }
 
             // // 若静态化解析构建时，初始化参数值都是字符串，这里多做下转换
@@ -212,7 +214,6 @@ define(function ( require ) {
 
             // `navigator`部件滚动支持
             if ( this.scroll ) {
-                // 万事俱备，只欠东风
                 // 初始化`TabScroll`插件
                 plugin.activePlugin(
                     this,
@@ -260,6 +261,24 @@ define(function ( require ) {
                 this.removeState( 'vertical' );
                 this.removeState( 'horizontal' );
                 this.addState( this.orientation );
+            }
+
+            // 属性`scroll`的变化，需要通过插件管理器同步做下处理
+            // 目前暂时实现的比较粗狂：
+            // `false` -> `true`: 重新激活插件(实际内部是重新创建实例)
+            // `true` -> `false`: 直接销毁插件
+            // TODO: 若`scroll`频繁的设置，可能会带来一定的开销，待后续优化
+            if ( changes && changes.hasOwnProperty( 'scroll' ) ) {
+                if ( this.scroll ) {
+                    plugin.activePlugin(
+                        this,
+                        'TabScroll',
+                        ( this.options.plugin || {} )[ 'scroll' ]
+                    );
+                }
+                else {
+                    plugin.disposePlugin( this, 'TabScroll' );
+                }
             }
         },
 

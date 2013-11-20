@@ -59,7 +59,6 @@ define(function ( require ) {
          */
         initialize: function ( options ) {
             this.options = options || {};
-            this.target.on( 'afterrender', lang.bind( this.render, this ));
 
             // 当目标控件是经过静态化构建而来时（`ui.init`）
             // 插件的配置对象的每项值均为字符串，这里需要做下转化以免出现校验错误
@@ -75,6 +74,16 @@ define(function ( require ) {
                     this[ key ] = /\s?true\s?/i.test( this[ key ] );
                 }
             }, this.options);
+
+            if ( this.target.rendered ) {
+                this.render();
+            }
+            else {
+                this.target.on(
+                    'afterrender',
+                    this.onRender = lang.bind( this.render, this )
+                );
+            }
         },
 
         /**
@@ -118,6 +127,59 @@ define(function ( require ) {
         },
 
         /**
+         * 初始化所有事件监听
+         * 
+         * @protected
+         */
+        attachEvents: function () {
+            var tab = this.target;
+            var scroller = this.instance;
+            var onRepaint = this.onRepaint = lang.bind(
+                                                scroller.repaint,
+                                                scroller
+                                            );
+            tab.on( 'add', onRepaint );
+            tab.on( 'remove', onRepaint );
+            // TODO: 暂时先这么用，待优化
+            window.addEventListener( 'resize', onRepaint );
+
+            var onEnable = this.onEnable = lang.bind( this.enable, this );
+            tab.on( 'enable', onEnable );
+            tab.on( 'show', onEnable );
+
+            var onDisable = this.onDisable = lang.bind( this.disable, this );
+            tab.on( 'disable', onDisable );
+            tab.on( 'hide', onDisable );
+        },
+
+        /**
+         * 释放所有事件监听
+         * 
+         * @protected
+         */
+        detachEvents: function() {
+            var tab = this.target;
+
+            tab.off( 'afterrender', this.onRender );
+
+            // TODO: 暂时先这么用，待优化
+            window.removeEventListener( 'resize', this.onRepaint );
+            tab.off( 'add', this.onRepaint );
+            tab.off( 'remove', this.onRepaint );
+
+            tab.off( 'enable', this.onEnable );
+            tab.off( 'show', this.onEnable );
+            
+            tab.off( 'disable', this.onDisable );
+            tab.off( 'hide', this.onDisable );
+            
+            this.onRender = this.onRepaint
+                          = this.onEnable
+                          = this.onDisable
+                          = null;
+        },
+
+        /**
          * 渲染插件
          * 
          * @public
@@ -131,27 +193,12 @@ define(function ( require ) {
 
             this.initStructure();
 
-            var tab = this.target;
-            var scroller = this.instance = SaberScroll(
-                                                tab.main,
-                                                this.options
-                                            );
-            var onRepaint = this.onRepaint = lang.bind(
-                                                scroller.repaint,
-                                                scroller
-                                            );
-            tab.on( 'add', onRepaint );
-            tab.on( 'remove', onRepaint );
-            // TODO: 暂时先这么用，待优化
-            window.addEventListener( 'resize', onRepaint );
+            this.instance = SaberScroll(
+                                this.target.main,
+                                this.options
+                            );
 
-            var onEnable = lang.bind( this.enable, this );
-            tab.on( 'enable', onEnable );
-            tab.on( 'show', onEnable );
-
-            var onDisable = lang.bind( this.disable, this );
-            tab.on( 'disable', onDisable );
-            tab.on( 'hide', onDisable );
+            this.attachEvents();
         },
 
         /**
@@ -160,12 +207,10 @@ define(function ( require ) {
          * @public
          */
         dispose: function () {
-            // TODO: 暂时先这么用，待优化
-            window.removeEventListener( 'resize', this.onRepaint );
-            
+            this.detachEvents();
+            this.instance.scrollTo( 0, 0 );
             this.instance.destroy();
-
-            this.target = this.instance = this.onRepaint = null;
+            this.target = this.instance = null;
         },
 
         /**
