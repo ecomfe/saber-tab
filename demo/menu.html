@@ -209,6 +209,9 @@
                 );
             };
 
+            // 300ms 点击延迟修复
+            Tap.mixin( $( '.container' ) );
+
 
 
             // 静态化
@@ -247,8 +250,6 @@
                 panelScroll = null;
             });
 
-            // 修复300ms点击延迟
-            Tap.mixin( menu.get( 'main' ) );
 
 
 

@@ -57,6 +57,12 @@
             },
 
             {
+                name: 'saber-tap',
+                location: '../dep/saber-tap/0.1.0-0/src',
+                main: 'tap'
+            },
+
+            {
                 name: 'saber-ui',
                 location: '../dep/saber-ui/0.1.0/src',
                 main: 'main'
@@ -122,11 +128,12 @@
     <script>
     require(
         [
+            'saber-tap',
             'saber-dom/selector',
             'saber-ui',
             'saber-tab'
         ],
-        function( selector, ui, Tab ) {
+        function( Tap, selector, ui, Tab ) {
             var $ = selector.query;
             var wrapper1 = $( '#wrapper1' );
             var wrapper2 = $( '#wrapper2' );
@@ -138,6 +145,9 @@
                     500
                 );
             };
+
+            // 300ms 点击延迟修复
+            Tap.mixin( $( '.container' ) );
 
 
             // 静态化

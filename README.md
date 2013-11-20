@@ -8,7 +8,7 @@
 + [saber-lang](https://github.com/ecomfe/saber-lang)
 + [saber-string](https://github.com/ecomfe/saber-string)
 + [saber-dom](https://github.com/ecomfe/saber-dom)
-+ [saber-scroll](https://github.com/ecomfe/saber-scroll)
++ [saber-scroll](https://github.com/ecomfe/saber-sroll)
 + [saber-ui](https://github.com/ecomfe/saber-ui)
 + [saber-control](https://github.com/ecomfe/saber-control)
 
@@ -33,11 +33,13 @@
 
 + `scroll`: 是否支持拖动。类型`Boolean`，默认值`false`
 
-	注：此属性为`true`不能保证拖动正确启用，需确保[`saber-scroll`](https://github.com/ecomfe/saber-scroll)模块已正确引入
+	注：此属性为`true`不能保证拖动正确启用，需确保插件`saber-tab/plugin/scroll`已正确引入，否则此属性配置无效
 
-更多配置项，请参考父类[`Control`](https://github.com/ecomfe/saber-control#option)
+更多配置项，请参考父类[`Control`](https://github.com/ecomfe/saber-control/blob/master/doc/api-control.md#option)
 
 ### Property
+
+***注：所有实例属性禁止直接访问和操作，请使用`get`、`set`方法操作，若属性存在对应的`getter`或`setter`方法，则优先使用`getter`或`setter`***
 
 #### activeIndex
 
@@ -82,7 +84,7 @@
 ```
 
 
-更多实例属性，请参考父类[`Control`](https://github.com/ecomfe/saber-control#property)
+更多实例属性，请参考父类[`Control`](https://github.com/ecomfe/saber-control/blob/master/doc/api-control.md#property)
 
 
 
@@ -220,7 +222,7 @@ tab.select( 0 );
 console.info( tab.get( 'activeIndex' ) ); // 1
 ```
 
-更多实例方法，请参考父类[`Control`](https://github.com/ecomfe/saber-control#api)
+更多实例方法，请参考父类[`Control`](https://github.com/ecomfe/saber-control/blob/master/doc/api-control.md#method)
 
 
 
@@ -306,7 +308,7 @@ tab.on( 'change', function ( ev, data ) {
 });
 ```
 
-更多事件，请参考父类[`Control`](https://github.com/ecomfe/saber-control#event)
+更多事件，请参考父类[`Control`](https://github.com/ecomfe/saber-control/blob/master/doc/api-control.md#event)
 
 
 
